@@ -20,7 +20,8 @@
 package org.evosuite.basic;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
@@ -28,12 +29,14 @@ import org.evosuite.EvoSuite;
 import org.evosuite.Properties;
 import org.evosuite.SystemTestBase;
 import org.evosuite.result.TestGenerationResult;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
 
 public class TestShouldNotWork {
 
+	@Ignore
 	@Test(expected=IllegalArgumentException.class)
 	public void testShouldNotWorkOnEvoSuitePackage(){
 		EvoSuite evosuite = new EvoSuite();
@@ -53,6 +56,7 @@ public class TestShouldNotWork {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Ignore
 	@Test
 	public void testJavaPackageNotOnProjectCP(){
 		EvoSuite evosuite = new EvoSuite();
