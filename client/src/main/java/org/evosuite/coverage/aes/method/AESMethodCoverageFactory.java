@@ -2,6 +2,7 @@ package org.evosuite.coverage.aes.method;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,21 @@ import org.objectweb.asm.Type;
 public class AESMethodCoverageFactory extends 
 	AbstractFitnessFactory<MethodCoverageTestFitness> {
 
+	private boolean filterPublicModifier = false;
+	
+	public AESMethodCoverageFactory() {
+		this(false);
+	}
+	
+	public AESMethodCoverageFactory(boolean filterPublicModifier) {
+		this.setPublicFilter(filterPublicModifier);
+	}
+
+	public AESMethodCoverageFactory setPublicFilter(boolean filterPublicModifier) {
+		this.filterPublicModifier = filterPublicModifier;
+		return this;
+	}
+	
 	@Override
 	public List<MethodCoverageTestFitness> getCoverageGoals() {
 		String className = Properties.TARGET_CLASS;
@@ -24,7 +40,7 @@ public class AESMethodCoverageFactory extends
 			Constructor<?>[] allConstructors = targetClass.getDeclaredConstructors();
 			
 			for (Constructor<?> c : allConstructors) {
-				if (TestUsageChecker.canUse(c)) {
+				if (TestUsageChecker.canUse(c) || checkModifiers(c)) {
 					String methodName = "<init>" + Type.getConstructorDescriptor(c);
 					goals.add(new MethodCoverageTestFitness(className, methodName));
 				}
@@ -32,7 +48,7 @@ public class AESMethodCoverageFactory extends
 			
 			Method[] allMethods = targetClass.getDeclaredMethods();
 			for (Method m : allMethods) {
-				if (TestUsageChecker.canUse(m)) {
+				if (TestUsageChecker.canUse(m) || checkModifiers(m)) {
 					String methodName = m.getName() + Type.getMethodDescriptor(m);
 					goals.add(new MethodCoverageTestFitness(className, methodName));
 				}
@@ -41,4 +57,20 @@ public class AESMethodCoverageFactory extends
 		
 		return goals;
 	}
+
+	private boolean checkModifiers(Constructor<?> c) {
+		return checkModifiers(c.getModifiers());
+	}
+	
+	private boolean checkModifiers(Method m) {
+		return checkModifiers(m.getModifiers());
+	}
+
+	private boolean checkModifiers(int modifiers) {
+		if (filterPublicModifier) {
+			return Modifier.isPublic(modifiers);
+		}
+		return true;
+	}
+
 }

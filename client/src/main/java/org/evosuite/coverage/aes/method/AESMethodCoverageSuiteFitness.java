@@ -25,11 +25,15 @@ public class AESMethodCoverageSuiteFitness extends AbstractAESCoverageSuiteFitne
 	private List<String> determineMethods() {
 		if (this.methods == null) {
 			this.methods = new ArrayList<String>();
-			for (MethodCoverageTestFitness goal : new AESMethodCoverageFactory().getCoverageGoals()) {
+			for (MethodCoverageTestFitness goal : getFactory().getCoverageGoals()) {
 				this.methods.add(goal.toString());
 			}
 		}
 		return this.methods;
+	}
+
+	protected AESMethodCoverageFactory getFactory() {
+		return new AESMethodCoverageFactory();
 	}
 
 	@Override
