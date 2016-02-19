@@ -18,14 +18,26 @@ public abstract class AbstractAESCoverageSuiteFitness extends TestSuiteFitnessFu
 		this.metric = metric;
 	}
 	
+	public double getCoverage(AbstractTestSuiteChromosome<? extends ExecutableChromosome> suite) {
+		List<ExecutionResult> results = runTestSuite(suite);
+		Spectrum spectrum = getSpectrum(results);
+		return getMetric(spectrum);
+	}
+	
+	public double getBasicCoverage(AbstractTestSuiteChromosome<? extends ExecutableChromosome> suite) {
+		List<ExecutionResult> results = runTestSuite(suite);
+		Spectrum spectrum = getSpectrum(results);
+		return spectrum.basicCoverage();
+	}
+
 	@Override
 	public double getFitness(AbstractTestSuiteChromosome<? extends ExecutableChromosome> suite) {
-		List<ExecutionResult> results = runTestSuite(suite);
-		
-		Spectrum spectrum = getSpectrum(results);
-		double fitness = metricToFitness( getMetric(spectrum) );
+		double metric_value = getCoverage(suite);
+		double fitness = metricToFitness(metric_value);
 		
 		updateIndividual(this, suite, fitness);
+		suite.setCoverage(this, metric_value);
+		
 		return fitness;
 	}
 

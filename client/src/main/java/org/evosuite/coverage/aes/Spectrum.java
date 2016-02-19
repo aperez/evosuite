@@ -156,4 +156,21 @@ public class Spectrum {
 		double ambiguity = (double) ambiguityGroups.size() / (double) components;
 		return ambiguity;
 	}
+	
+	public double basicCoverage() {
+		if (!this.isValidMatrix()) return 0d;
+		int components = this.getNumComponents();
+		
+		BitSet activations = new BitSet(components);
+		for (BitSet transaction : transactions) {
+			for (int c = 0; c < components; c++) {
+				if(transaction.get(c)) {
+					activations.set(c);
+				}
+			}
+		}
+		
+		double coverage = (double) activations.cardinality() / (double) components;
+		return coverage;
+	}
 }
