@@ -117,6 +117,8 @@ public enum RuntimeVariable {
 	RhoScore_T0,
 	RhoScoreTimeline,
 	RhoCoverage,
+	/** AES**/
+	AESCoverage,
 	/** The obtained ambiguity coverage */
 	AmbiguityScore,
 	AmbiguityScore_T0,

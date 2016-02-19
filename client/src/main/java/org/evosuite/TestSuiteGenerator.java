@@ -740,6 +740,24 @@ public class TestSuiteGenerator {
 		case IBRANCH:
 			LoggingUtils.getEvoLogger().info("  - 'i' Branch Coverage"); //FIXME what is "I" standing for???
 			break;
+		case AES_METHOD:
+			LoggingUtils.getEvoLogger().info("  - AES Method Coverage");
+			break;
+		case AES_METHOD_DTR:
+			LoggingUtils.getEvoLogger().info("  - AES Method (DTR) Coverage");
+			break;
+		case AES_PUBLIC_METHOD:
+			LoggingUtils.getEvoLogger().info("  - AES Public Method Coverage");
+			break;
+		case AES_PUBLIC_METHOD_DTR:
+			LoggingUtils.getEvoLogger().info("  - AES Public Method (DTR) Coverage");
+			break;
+		case AES_BRANCH:
+			LoggingUtils.getEvoLogger().info("  - AES Branch Coverage");
+			break;
+		case AES_BRANCH_DTR:
+			LoggingUtils.getEvoLogger().info("  - AES Branch Coverage");
+			break;
 		default:
 			throw new IllegalArgumentException("Unrecognized criterion: "+criterion);
 		}

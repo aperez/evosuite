@@ -21,6 +21,12 @@ package org.evosuite.coverage;
 
 import org.evosuite.Properties;
 import org.evosuite.Properties.Criterion;
+import org.evosuite.coverage.aes.AbstractAESCoverageSuiteFitness.Metric;
+import org.evosuite.coverage.aes.branch.AESBranchCoverageFactory;
+import org.evosuite.coverage.aes.branch.AESBranchCoverageSuiteFitness;
+import org.evosuite.coverage.aes.method.AESMethodCoverageFactory;
+import org.evosuite.coverage.aes.method.AESMethodCoverageSuiteFitness;
+import org.evosuite.coverage.aes.method.AESPublicMethodCoverageSuiteFitness;
 import org.evosuite.coverage.ambiguity.AmbiguityCoverageFactory;
 import org.evosuite.coverage.ambiguity.AmbiguityCoverageSuiteFitness;
 import org.evosuite.coverage.branch.BranchCoverageFactory;
@@ -42,8 +48,17 @@ import org.evosuite.coverage.input.InputCoverageSuiteFitness;
 import org.evosuite.coverage.line.LineCoverageFactory;
 import org.evosuite.coverage.line.LineCoverageSuiteFitness;
 import org.evosuite.coverage.line.OnlyLineCoverageSuiteFitness;
-import org.evosuite.coverage.method.*;
-import org.evosuite.coverage.mutation.*;
+import org.evosuite.coverage.method.MethodCoverageFactory;
+import org.evosuite.coverage.method.MethodCoverageSuiteFitness;
+import org.evosuite.coverage.method.MethodNoExceptionCoverageFactory;
+import org.evosuite.coverage.method.MethodNoExceptionCoverageSuiteFitness;
+import org.evosuite.coverage.method.MethodTraceCoverageFactory;
+import org.evosuite.coverage.method.MethodTraceCoverageSuiteFitness;
+import org.evosuite.coverage.mutation.MutationFactory;
+import org.evosuite.coverage.mutation.OnlyMutationFactory;
+import org.evosuite.coverage.mutation.OnlyMutationSuiteFitness;
+import org.evosuite.coverage.mutation.StrongMutationSuiteFitness;
+import org.evosuite.coverage.mutation.WeakMutationSuiteFitness;
 import org.evosuite.coverage.output.OutputCoverageFactory;
 import org.evosuite.coverage.output.OutputCoverageSuiteFitness;
 import org.evosuite.coverage.readability.ReadabilitySuiteFitness;
@@ -123,6 +138,18 @@ public class FitnessFunctions {
 			return new OutputCoverageSuiteFitness();
 		case INPUT:
 			return new InputCoverageSuiteFitness();
+		case AES_METHOD:
+			return new AESMethodCoverageSuiteFitness();
+		case AES_METHOD_DTR:
+			return new AESMethodCoverageSuiteFitness(Metric.DTR);
+		case AES_PUBLIC_METHOD:
+			return new AESPublicMethodCoverageSuiteFitness();
+		case AES_PUBLIC_METHOD_DTR:
+			return new AESPublicMethodCoverageSuiteFitness(Metric.DTR);
+		case AES_BRANCH:
+			return new AESBranchCoverageSuiteFitness();
+		case AES_BRANCH_DTR:
+			return new AESBranchCoverageSuiteFitness(Metric.DTR);
 		default:
 			logger.warn("No TestSuiteFitnessFunction defined for " + Properties.CRITERION
 			        + " using default one (BranchCoverageSuiteFitness)");
@@ -183,6 +210,15 @@ public class FitnessFunctions {
 			return new OutputCoverageFactory();
 		case INPUT:
 			return new InputCoverageFactory();
+		case AES_METHOD:
+		case AES_METHOD_DTR:
+			return new AESMethodCoverageFactory();
+		case AES_PUBLIC_METHOD:
+		case AES_PUBLIC_METHOD_DTR:
+			return new AESMethodCoverageFactory(true);
+		case AES_BRANCH:
+		case AES_BRANCH_DTR:
+			return new AESBranchCoverageFactory();
 		default:
 			logger.warn("No TestFitnessFactory defined for " + crit
 			        + " using default one (BranchCoverageFactory)");
