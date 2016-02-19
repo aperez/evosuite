@@ -9,19 +9,20 @@ import org.evosuite.coverage.branch.Branch;
 import org.evosuite.coverage.branch.BranchCoverageGoal;
 import org.evosuite.coverage.branch.BranchCoverageTestFitness;
 import org.evosuite.coverage.branch.BranchPool;
+import org.evosuite.testcase.TestFitnessFunction;
 import org.evosuite.testsuite.AbstractFitnessFactory;
 
 public class AESBranchCoverageFactory extends
-	AbstractFitnessFactory<BranchCoverageTestFitness> {
+	AbstractFitnessFactory<TestFitnessFunction> {
 
 	@Override
-	public List<BranchCoverageTestFitness> getCoverageGoals() {
+	public List<TestFitnessFunction> getCoverageGoals() {
 		
 		String className = Properties.TARGET_CLASS;
 		Class<?> targetClass = Properties.getTargetClass();
 		BranchPool bpinstance = BranchPool.getInstance(TestGenerationContext.getInstance().getClassLoaderForSUT());
 		
-		List<BranchCoverageTestFitness> goals = new ArrayList<BranchCoverageTestFitness>();
+		List<TestFitnessFunction> goals = new ArrayList<TestFitnessFunction>();
 		
 		if (targetClass != null) {
 			
@@ -42,6 +43,7 @@ public class AESBranchCoverageFactory extends
 			
 		}
 		
+		goals.add(new UnreachableBranchCoverageTestFitness());
 		return goals;
 	}
 	

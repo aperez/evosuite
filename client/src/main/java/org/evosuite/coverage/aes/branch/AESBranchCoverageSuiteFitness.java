@@ -7,6 +7,7 @@ import java.util.Map;
 import org.evosuite.coverage.aes.AbstractAESCoverageSuiteFitness;
 import org.evosuite.coverage.aes.Spectrum;
 import org.evosuite.coverage.branch.BranchCoverageTestFitness;
+import org.evosuite.testcase.TestFitnessFunction;
 import org.evosuite.testcase.execution.ExecutionResult;
 
 public class AESBranchCoverageSuiteFitness extends AbstractAESCoverageSuiteFitness {
@@ -17,11 +18,11 @@ public class AESBranchCoverageSuiteFitness extends AbstractAESCoverageSuiteFitne
 	private Map<Integer, Integer> falseMap;
 	private Map<String, Integer> branchlessMethodsMap;
 	private int numberOfGoals = 0;
-	
+
 	public AESBranchCoverageSuiteFitness(Metric metric) {
 		super(metric);
 	}
-	
+
 	public AESBranchCoverageSuiteFitness() {
 		this(Metric.AES);
 	}
@@ -31,19 +32,23 @@ public class AESBranchCoverageSuiteFitness extends AbstractAESCoverageSuiteFitne
 			this.branchlessMethodsMap = new HashMap<String, Integer>();
 			this.trueMap = new HashMap<Integer, Integer>();
 			this.falseMap = new HashMap<Integer, Integer>();
-			
-			List<BranchCoverageTestFitness> goals = new AESBranchCoverageFactory().getCoverageGoals();
-			this.numberOfGoals = goals.size();
+
+			List<TestFitnessFunction> goals = new AESBranchCoverageFactory().getCoverageGoals();
+			this.numberOfGoals = goals.size() - 1;
 
 			for(int g = 0; g < this.numberOfGoals; g++) {
-				BranchCoverageTestFitness goal = goals.get(g);
+				TestFitnessFunction ff = goals.get(g);
 
-				if (goal.getBranch() == null) { // branchless method
-					branchlessMethodsMap.put(goal.getClassName() + "." + goal.getMethod(), g);
-				} else if (goal.getBranchExpressionValue()) { // true branch
-					trueMap.put(goal.getBranch().getActualBranchId(), g);
-				} else { // false branch
-					falseMap.put(goal.getBranch().getActualBranchId(), g);
+				if (ff instanceof BranchCoverageTestFitness) {
+					BranchCoverageTestFitness goal =  (BranchCoverageTestFitness) ff;
+
+					if (goal.getBranch() == null) { // branchless method
+						branchlessMethodsMap.put(goal.getClassName() + "." + goal.getMethod(), g);
+					} else if (goal.getBranchExpressionValue()) { // true branch
+						trueMap.put(goal.getBranch().getActualBranchId(), g);
+					} else { // false branch
+						falseMap.put(goal.getBranch().getActualBranchId(), g);
+					}
 				}
 			}
 		}
@@ -53,10 +58,10 @@ public class AESBranchCoverageSuiteFitness extends AbstractAESCoverageSuiteFitne
 	protected Spectrum getSpectrum(List<ExecutionResult> results) {
 		determineCoverageGoals();
 		Spectrum spectrum = new Spectrum(results.size(), this.numberOfGoals);
-		
+
 		for (int t = 0; t < results.size(); t++) {
 			ExecutionResult result = results.get(t);
-			
+
 			for(String method : result.getTrace().getCoveredMethods()) {
 				if (branchlessMethodsMap.containsKey(method)) {
 					spectrum.setInvolved(t, branchlessMethodsMap.get(method));
@@ -74,9 +79,9 @@ public class AESBranchCoverageSuiteFitness extends AbstractAESCoverageSuiteFitne
 					spectrum.setInvolved(t, falseMap.get(falseBranchId));
 				}
 			}
-			
+
 		}
-		
+
 		return spectrum;
 	}
 }
