@@ -40,7 +40,7 @@ public class AESMethodCoverageFactory extends
 			Constructor<?>[] allConstructors = targetClass.getDeclaredConstructors();
 			
 			for (Constructor<?> c : allConstructors) {
-				if (TestUsageChecker.canUse(c) || checkModifiers(c)) {
+				if (TestUsageChecker.canUse(c) && checkModifiers(c)) {
 					String methodName = "<init>" + Type.getConstructorDescriptor(c);
 					goals.add(new MethodCoverageTestFitness(className, methodName));
 				}
@@ -48,13 +48,14 @@ public class AESMethodCoverageFactory extends
 			
 			Method[] allMethods = targetClass.getDeclaredMethods();
 			for (Method m : allMethods) {
-				if (TestUsageChecker.canUse(m) || checkModifiers(m)) {
+				if (TestUsageChecker.canUse(m) && checkModifiers(m)) {
 					String methodName = m.getName() + Type.getMethodDescriptor(m);
 					goals.add(new MethodCoverageTestFitness(className, methodName));
 				}
 			}
 		}
 		
+		goals.add(new UnreachableMethodCoverageTestFitness());
 		return goals;
 	}
 
