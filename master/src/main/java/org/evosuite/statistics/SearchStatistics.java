@@ -257,9 +257,8 @@ public class SearchStatistics implements Listener<ClientStateInformation>{
 	 */
 	private Collection<String> getOutputVariableNames() {
 		List<String> variableNames = new ArrayList<>();
-		if(Properties.OUTPUT_VARIABLES == null) {
-			variableNames.addAll(getAllOutputVariableNames());
-		} else {
+		variableNames.addAll(getAllOutputVariableNames());
+		if(Properties.OUTPUT_VARIABLES != null) {
 			for(String entry : Properties.OUTPUT_VARIABLES.split(",")){
 				variableNames.add(entry.trim());
 			}

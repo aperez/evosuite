@@ -18,7 +18,7 @@ public abstract class AbstractAESCoverageSuiteFitness extends TestSuiteFitnessFu
 		this.metric = metric;
 	}
 	
-	public double getCoverage(AbstractTestSuiteChromosome<? extends ExecutableChromosome> suite) {
+	public double getMetric(AbstractTestSuiteChromosome<? extends ExecutableChromosome> suite) {
 		List<ExecutionResult> results = runTestSuite(suite);
 		Spectrum spectrum = getSpectrum(results);
 		return getMetric(spectrum);
@@ -32,7 +32,7 @@ public abstract class AbstractAESCoverageSuiteFitness extends TestSuiteFitnessFu
 
 	@Override
 	public double getFitness(AbstractTestSuiteChromosome<? extends ExecutableChromosome> suite) {
-		double metric_value = getCoverage(suite);
+		double metric_value = getMetric(suite);
 		double fitness = metricToFitness(metric_value);
 		
 		updateIndividual(this, suite, fitness);

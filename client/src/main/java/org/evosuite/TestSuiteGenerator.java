@@ -32,6 +32,7 @@ import org.evosuite.contracts.FailingTestSet;
 import org.evosuite.coverage.CoverageCriteriaAnalyzer;
 import org.evosuite.coverage.FitnessFunctions;
 import org.evosuite.coverage.TestFitnessFactory;
+import org.evosuite.coverage.aes.AESUtils;
 import org.evosuite.coverage.branch.Branch;
 import org.evosuite.coverage.branch.BranchPool;
 import org.evosuite.coverage.dataflow.DefUseCoverageSuiteFitness;
@@ -418,6 +419,8 @@ public class TestSuiteGenerator {
 
 		TestGenerationStrategy strategy = getTestGenerationStrategy();
 		TestSuiteChromosome testSuite = strategy.generateTests();
+		
+		AESUtils.trackAESMetrics(testSuite);
 		
 		if (Properties.CHECK_CONTRACTS) {
 			TestCaseExecutor.getInstance().removeObserver(checker);

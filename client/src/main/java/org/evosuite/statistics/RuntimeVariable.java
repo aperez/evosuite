@@ -373,7 +373,14 @@ public enum RuntimeVariable {
 	/** How many SAT queries led to Useful (i.e. better fitness) new tests*/ 
 	NumberOfUsefulNewTests,
 	/** How many SAT queries led to Unuseful (i.e. no better fitness) new tests*/ 
-	NumberOfUnusefulNewTests
+	NumberOfUnusefulNewTests, 
+	
+	BasicBranchCoverage,
+	BasicMethodCoverage,
+	BasicPublicMethodCoverage,
+	AESBranchCoverage, AESBranchCoverageDTR, 
+	AESMethodCoverage, AESMethodCoverageDTR,
+	AESPublicMethodCoverage, AESPublicMethodCoverageDTR
 	
 	;
 	/* -------------------------------------------------- */
