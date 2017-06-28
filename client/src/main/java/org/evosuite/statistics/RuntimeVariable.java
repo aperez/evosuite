@@ -118,7 +118,7 @@ public enum RuntimeVariable {
 	RhoScoreTimeline,
 	RhoCoverage,
 	/** AES**/
-	AESCoverage,
+	DDUCoverage,
 	/** The obtained ambiguity coverage */
 	AmbiguityScore,
 	AmbiguityScore_T0,
@@ -378,9 +378,9 @@ public enum RuntimeVariable {
 	BasicBranchCoverage,
 	BasicMethodCoverage,
 	BasicPublicMethodCoverage,
-	AESBranchCoverage, AESBranchCoverageDTR, 
-	AESMethodCoverage, AESMethodCoverageDTR,
-	AESPublicMethodCoverage, AESPublicMethodCoverageDTR
+	DDUBranchCoverage, DDUBranchCoverageDTR, 
+	DDUMethodCoverage, DDUMethodCoverageDTR,
+	DDUPublicMethodCoverage, DDUPublicMethodCoverageDTR
 	
 	;
 	/* -------------------------------------------------- */

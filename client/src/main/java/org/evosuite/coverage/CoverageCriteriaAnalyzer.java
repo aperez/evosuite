@@ -177,13 +177,13 @@ public class CoverageCriteriaAnalyzer {
                 return RuntimeVariable.IBranchCoverage;
             case REGRESSION:
                 return RuntimeVariable.BranchCoverage;
-            case AES_METHOD:
-            case AES_METHOD_DTR:
-            case AES_PUBLIC_METHOD:
-            case AES_PUBLIC_METHOD_DTR:
-            case AES_BRANCH:
-            case AES_BRANCH_DTR:
-            	return RuntimeVariable.AESCoverage;
+            case DDU_METHOD:
+            case DDU_METHOD_DTR:
+            case DDU_PUBLIC_METHOD:
+            case DDU_PUBLIC_METHOD_DTR:
+            case DDU_BRANCH:
+            case DDU_BRANCH_DTR:
+            	return RuntimeVariable.DDUCoverage;
             default:
                 throw new RuntimeException("Criterion not supported: " + criterion);
 

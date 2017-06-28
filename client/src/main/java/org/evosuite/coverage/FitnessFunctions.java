@@ -138,17 +138,17 @@ public class FitnessFunctions {
 			return new OutputCoverageSuiteFitness();
 		case INPUT:
 			return new InputCoverageSuiteFitness();
-		case AES_METHOD:
+		case DDU_METHOD:
 			return new AESMethodCoverageSuiteFitness();
-		case AES_METHOD_DTR:
+		case DDU_METHOD_DTR:
 			return new AESMethodCoverageSuiteFitness(Metric.DTR);
-		case AES_PUBLIC_METHOD:
+		case DDU_PUBLIC_METHOD:
 			return new AESPublicMethodCoverageSuiteFitness();
-		case AES_PUBLIC_METHOD_DTR:
+		case DDU_PUBLIC_METHOD_DTR:
 			return new AESPublicMethodCoverageSuiteFitness(Metric.DTR);
-		case AES_BRANCH:
+		case DDU_BRANCH:
 			return new AESBranchCoverageSuiteFitness();
-		case AES_BRANCH_DTR:
+		case DDU_BRANCH_DTR:
 			return new AESBranchCoverageSuiteFitness(Metric.DTR);
 		default:
 			logger.warn("No TestSuiteFitnessFunction defined for " + Properties.CRITERION
@@ -210,14 +210,14 @@ public class FitnessFunctions {
 			return new OutputCoverageFactory();
 		case INPUT:
 			return new InputCoverageFactory();
-		case AES_METHOD:
-		case AES_METHOD_DTR:
+		case DDU_METHOD:
+		case DDU_METHOD_DTR:
 			return new AESMethodCoverageFactory();
-		case AES_PUBLIC_METHOD:
-		case AES_PUBLIC_METHOD_DTR:
+		case DDU_PUBLIC_METHOD:
+		case DDU_PUBLIC_METHOD_DTR:
 			return new AESMethodCoverageFactory(true);
-		case AES_BRANCH:
-		case AES_BRANCH_DTR:
+		case DDU_BRANCH:
+		case DDU_BRANCH_DTR:
 			return new AESBranchCoverageFactory();
 		default:
 			logger.warn("No TestFitnessFactory defined for " + crit

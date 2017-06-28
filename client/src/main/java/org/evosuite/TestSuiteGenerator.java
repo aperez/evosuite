@@ -743,23 +743,23 @@ public class TestSuiteGenerator {
 		case IBRANCH:
 			LoggingUtils.getEvoLogger().info("  - 'i' Branch Coverage"); //FIXME what is "I" standing for???
 			break;
-		case AES_METHOD:
-			LoggingUtils.getEvoLogger().info("  - AES Method Coverage");
+		case DDU_METHOD:
+			LoggingUtils.getEvoLogger().info("  - DDU Method Coverage");
 			break;
-		case AES_METHOD_DTR:
-			LoggingUtils.getEvoLogger().info("  - AES Method (DTR) Coverage");
+		case DDU_METHOD_DTR:
+			LoggingUtils.getEvoLogger().info("  - DDU Method (DTR) Coverage");
 			break;
-		case AES_PUBLIC_METHOD:
-			LoggingUtils.getEvoLogger().info("  - AES Public Method Coverage");
+		case DDU_PUBLIC_METHOD:
+			LoggingUtils.getEvoLogger().info("  - DDU Public Method Coverage");
 			break;
-		case AES_PUBLIC_METHOD_DTR:
-			LoggingUtils.getEvoLogger().info("  - AES Public Method (DTR) Coverage");
+		case DDU_PUBLIC_METHOD_DTR:
+			LoggingUtils.getEvoLogger().info("  - DDU Public Method (DTR) Coverage");
 			break;
-		case AES_BRANCH:
-			LoggingUtils.getEvoLogger().info("  - AES Branch Coverage");
+		case DDU_BRANCH:
+			LoggingUtils.getEvoLogger().info("  - DDU Branch Coverage");
 			break;
-		case AES_BRANCH_DTR:
-			LoggingUtils.getEvoLogger().info("  - AES Branch Coverage");
+		case DDU_BRANCH_DTR:
+			LoggingUtils.getEvoLogger().info("  - DDU Branch Coverage");
 			break;
 		default:
 			throw new IllegalArgumentException("Unrecognized criterion: "+criterion);
